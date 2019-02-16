@@ -12,24 +12,20 @@ from simpleeval import simple_eval
 # create directory structure
 for x in ["SMALL", "MEDIUM", "BIG", "LARGE", "EXTRA LARGE"]:
     os.makedirs(x, exist_ok=True)
-
+    
+# Make sure to load environment variables in configuration.
 CLARIFY_API_KEY = os.environ['CLARIFY_API_KEY']
+BOT_TOKEN = os.environ['BOT_TOKEN']
+
 app = ClarifaiApp(api_key=CLARIFY_API_KEY)
 model = app.public_models.general_model
 
 # sys.stdout = open('output.log', 'a')
 # sys.stderr = open('error.log', 'a')
 
-
-BOT_TOKEN = os.environ['BOT_TOKEN']
 FILE_ID_URL = "https://api.telegram.org/bot{bot_token}/getFile?file_id={file_id}"
 DOWNLOAD_FILE_URL = "https://api.telegram.org/file/bot{bot_token}/{file_path}"
 small, medium, big, large = 9999, 99999, 999999, 9999999
-
-# try:
-#     from Queue import Queue
-# except ImportError:
-#     from queue import Queue
 
 bot = telepot.Bot(BOT_TOKEN)
 
