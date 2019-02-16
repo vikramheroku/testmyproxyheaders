@@ -9,10 +9,11 @@ import telepot
 from clarifai.rest import ClarifaiApp
 from simpleeval import simple_eval
 
+# create directory structure
 for x in ["SMALL", "MEDIUM", "BIG", "LARGE", "EXTRA LARGE"]:
     os.makedirs(x, exist_ok=True)
 
-CLARIFY_API_KEY = "e2d119bc0535444d8ff4350a6e2dab78"
+CLARIFY_API_KEY = os.environ['CLARIFY_API_KEY']
 app = ClarifaiApp(api_key=CLARIFY_API_KEY)
 model = app.public_models.general_model
 
@@ -20,7 +21,7 @@ model = app.public_models.general_model
 # sys.stderr = open('error.log', 'a')
 
 
-BOT_TOKEN = "716107499:AAE_dtaohMBQ3iAvXy9max67UgEwAQ_2VVk"
+BOT_TOKEN = os.environ['BOT_TOKEN']
 FILE_ID_URL = "https://api.telegram.org/bot{bot_token}/getFile?file_id={file_id}"
 DOWNLOAD_FILE_URL = "https://api.telegram.org/file/bot{bot_token}/{file_path}"
 small, medium, big, large = 9999, 99999, 999999, 9999999
