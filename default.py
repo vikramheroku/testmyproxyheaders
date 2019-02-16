@@ -84,7 +84,7 @@ def process(chat_id, file_list, folder_name, analyze):
                 if analyze:
                     response = model.predict_by_filename(file_loc)
                     for c in response['outputs'][0]['data']['concepts'][:5]:
-                        bot.sendMessage(chat_id, text=f"{c['name']}: Confidence {(c['value'] * 100):.3f}%")
+                        bot.sendMessage(chat_id, text=f"{c['name'].title()} : Confidence {(c['value'] * 100):.3f}%")
                 return True
             except:
                 print(folder_name, file_loc, "Could not be processed")
