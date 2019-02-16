@@ -84,7 +84,7 @@ def process(chat_id, file_list, folder_name, analyze):
                 if analyze:
                     response = model.predict_by_filename(file_loc)
                     for c in response['outputs'][0]['data']['concepts'][:5]:
-                        bot.sendMessage(chat_id, text=f"{c['name']}: Confidence {c['value'] * 100}%")
+                        bot.sendMessage(chat_id, text=f"{c['name']}: Confidence {(c['value'] * 100):.3f}%")
                 return True
             except:
                 print(folder_name, file_loc, "Could not be processed")
@@ -113,8 +113,9 @@ def handle(msg):
             elif command in ["/settings", "settings"]:
                 settings(chat_id)
             elif command in ["author", "authors"]:
-                bot.sendMessage(chat_id, text="Hi!\n\nMy name is Vikram  Bankar\n"
+                bot.sendMessage(chat_id, text="Hi Everyone!\n\nMy name is Vikram  Bankar\n"
                                               "I created this bot as an experiment\n"
+                                              "This is intended for testing and not a commercial application\n"
                                               "If you liked this message me @ https://t.me/viksto\n"
                                               "I will be very glad!")
             else:
@@ -150,25 +151,6 @@ def handle(msg):
             except:
                 unknown(chat_id, "Could not process that picture")
         return ("Message sent")
-
-    # inline query - need `/setinline`
-    elif flavor == "inline_query":
-        query_id, from_id, query_string = telepot.glance(msg, flavor=flavor)
-        print("Inline Query:", query_id, from_id, query_string)
-
-        # Compose your own answers
-        articles = [{"type": "article",
-                     "id": "abc", "title": "ABC", "message_text": "Good morning"}]
-
-        bot.answerInlineQuery(query_id, articles)
-
-    # chosen inline result - need `/setinlinefeedback`
-    elif flavor == "chosen_inline_result":
-        result_id, from_id, query_string = telepot.glance(msg, flavor=flavor)
-        print("Chosen Inline Result:", result_id, from_id, query_string)
-
-        # Remember the chosen answer to do better next time
-
     else:
         raise telepot.exception.BadFlavor(msg)
 
